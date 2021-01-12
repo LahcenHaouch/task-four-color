@@ -1,30 +1,21 @@
-// you can write to stdout for debugging purposes, e.g.
-// console.log('this is a debug message');
-
 function solution(A) {
-  // write your code in JavaScript (Node.js 8.9.4)
   const visitedSquares = {}
   let numberOfCountries = 0
 
   const rowLength = A[0].length
   const columnLength = A.length
 
-  for (let rowIndex = 0; rowIndex < A.length; rowIndex++) {
-      const row = A[rowIndex]
-
-      for (let columnIndex = 0; columnIndex < row.length; columnIndex++){
-          if (visitedSquares[`${rowIndex}-${columnIndex}`]) {
-            console.log(`${rowIndex}-${columnIndex} skipped`);
-              continue
-          } else {
-              const value = row[columnIndex]
-              floodFill(rowIndex, columnIndex, rowLength, columnLength, value, A, visitedSquares)
-              numberOfCountries ++
-          }
+  A.forEach((row, rowIndex) => {
+    for (let columnIndex = 0; columnIndex < row.length; columnIndex++) {
+      if (visitedSquares[`${rowIndex}-${columnIndex}`]) {
+          continue
+      } else {
+          const value = row[columnIndex]
+          floodFill(rowIndex, columnIndex, rowLength, columnLength, value, A, visitedSquares)
+          numberOfCountries ++
       }
-  }
-
-  console.log(visitedSquares);
+    }
+  })
 
   return numberOfCountries
 }
